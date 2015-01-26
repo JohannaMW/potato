@@ -8,7 +8,7 @@ potato_blog.factory('PostFactory', function($http) {
                     console.log(error);
                 });
         },
-        deletePosts: function (post, callback) {
+        deletePost: function (post, callback) {
             $http.delete('/api/posts/' + post.id)
                 .success(function(response) {
                     callback(response);
@@ -16,7 +16,7 @@ potato_blog.factory('PostFactory', function($http) {
                     console.log(error);
                 });
         },
-        editPosts: function (post, data, callback) {
+        editPost: function (post, data, callback) {
             $http.put('/api/posts/' + post.id, data)
                 .success(function (response) {
                     callback(response);

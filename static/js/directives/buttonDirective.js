@@ -1,4 +1,4 @@
-todo.directive('button', function() {
+potato_blog.directive('button', function() {
     return {
         restrict: 'E',
         compile: function(element, attributes) {

@@ -1,7 +1,6 @@
-var potato_blog = angular.module('potato_bog', ['ngRoute', 'ngCookies', 'ui.bootstrap']);
+var potato_blog = angular.module('potato_blog', ['ngRoute', 'ngCookies', 'ui.bootstrap']);
 
 potato_blog.run(function ($http, $cookies) {
-    console.log(csrftoken);
     $http.defaults.headers.post['X-CSRFToken'] = $cookies['csrftoken'];
     $http.defaults.headers.put['X-CSRFToken'] = $cookies['csrftoken'];
     $http.defaults.headers.common['X-CSRFToken'] = $cookies['csrftoken'];

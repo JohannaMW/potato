@@ -9,12 +9,10 @@ session_csrf.monkeypatch()
 from django.contrib import admin
 admin.autodiscover()
 
-from potato_blog.api.views import AuthorViewSet, PostViewSet, CategoryViewSet
+from potato_blog.api.views import PostViewSet
 
 router = routers.DefaultRouter()
-router.register(r'authors', AuthorViewSet, base_name='authors')
 router.register(r'posts', PostViewSet, base_name='posts')
-router.register(r'categories', CategoryViewSet, base_name='categories')
 
 urlpatterns = patterns('',
     # Examples:
