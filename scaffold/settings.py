@@ -40,6 +40,8 @@ INSTALLED_APPS = (
     'csp',
     'djangae.contrib.gauth',
     'djangae', # Djangae should be after Django core/contrib things
+    'rest_framework',
+    'potato_blog',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -47,6 +49,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'djangae.contrib.gauth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'csp.middleware.CSPMiddleware',
@@ -65,6 +68,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "session_csrf.context_processor"
 )
 
+
 def check_session_csrf_enabled():
     if "session_csrf.CsrfMiddleware" not in MIDDLEWARE_CLASSES:
         return [ "SESSION_CSRF_DISABLED"]
@@ -82,11 +86,23 @@ SECURE_CHECKS = [
     "scaffold.settings.check_session_csrf_enabled"
 ]
 
+AUTHENTICATION_BACKENDS = (
+    'djangae.contrib.gauth.backends.AppEngineUserAPI',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+       'rest_framework.permissions.AllowAny',
+    ),
+}
+
 ROOT_URLCONF = 'scaffold.urls'
 
 WSGI_APPLICATION = 'scaffold.wsgi.application'
 
 
+LOGIN_REDIRECT_URL = 'home'
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
@@ -100,15 +116,16 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
-
-
-if DEBUG:
-    CSP_STYLE_SRC = ("'self'", "'unsafe-inline'")
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, "static", *MEDIA_URL.strip("/").split("/"))
+STATIC_ROOT = os.path.join(PROJECT_ROOT, "static")
+# if DEBUG:
+#     CSP_STYLE_SRC = ("'self'", "'unsafe-inline'")
 
 
 from djangae.contrib.gauth.settings import *

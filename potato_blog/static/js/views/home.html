@@ -1,0 +1,8 @@
+<h1>Latest Posts</h1>
+ <div ng-repeat="post in posts">
+     {{ post.title }}
+
+<div ng-repeat="category in categories">
+     <select ng-model="post.category" data-ng-options="category.ID as category.name for category in categories"></select>
+ </div>
+     </div>
