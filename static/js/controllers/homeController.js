@@ -35,7 +35,7 @@ function homeController($scope, PostFactory, $location){
             "category": $scope.postCategory.value
         };
         PostFactory.createPost(data, function(response) {
-            $scope.tasks.push(response);
+            $scope.posts.push(response);
             $location.path('/')
         });
     };
